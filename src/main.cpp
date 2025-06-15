@@ -7,12 +7,11 @@
 int main() {
     GLFW::Init();
 
-    Window window(800, 600, "Sandbox1", true);
+    Window window(800, 600, "Sandbox", true);
     window.Bind();
 
     while (!window.ShouldClose()) {
-        glClearColor(1.0f, 0.0f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        window.Clear(0.2f, 0.2f, 0.2f);
         window.SwapBuffers();
 
         glfwPollEvents();

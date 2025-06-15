@@ -21,6 +21,8 @@ public:
     void Bind() const;
     void SwapBuffers() const;
 
+    void Clear(float r, float g, float b, float a = 1.f) const;
+
 private:
     static int count;
     GLFWwindow* window = nullptr;
