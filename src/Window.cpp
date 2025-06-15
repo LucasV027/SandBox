@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include <stdexcept>
+#include <iostream>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -9,6 +10,15 @@
 void GLFW::Init() {
     if (!glfwInit())
         throw std::runtime_error("Failed to initialize GLFW");
+
+    glfwSetErrorCallback([](const int error, const char* description) {
+        std::cerr << "GLFW Error (" << error << "): " << description << std::endl;
+    });
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 }
 
 void GLFW::Destroy() {
@@ -37,6 +47,8 @@ Window::Window(const int width, const int height, const char* title, const bool 
 Window::~Window() {
     Destroy();
 }
+
+GLFWwindow* Window::Get() const { return window; }
 
 void Window::Destroy() {
     if (window) {

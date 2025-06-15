@@ -12,6 +12,8 @@ public:
     Window(int width, int height, const char* title, bool vsync = false);
     ~Window();
 
+    GLFWwindow* Get() const;
+
     void Destroy();
 
     bool IsValid() const;
