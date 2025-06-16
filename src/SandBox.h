@@ -20,9 +20,11 @@ public:
     int Height() const;
 
 private:
+    void SwapBuffers();
     int Index(int x, int y) const;
 
 private:
     int width, height;
-    std::vector<CellType> cells;
+    std::vector<CellType> buffers[2];
+    int current = 0;
 };

@@ -23,8 +23,10 @@ int main() {
 
         if (inputs.IsMouseButtonPressed(0)) {
             auto pos = window.GetMousePos();
-            sandbox.Create((int)pos.x, (int)pos.y, Sand);
+            sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), Sand);
         }
+
+        sandbox.Update();
 
         window.SwapBuffers();
 
