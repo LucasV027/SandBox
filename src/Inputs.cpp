@@ -4,7 +4,7 @@
 
 #include "imgui.h"
 
-Inputs::Inputs(Window& windowRef) : windowRef(windowRef) {
+void Inputs::Init(const Window& windowRef) {
     glfwSetWindowUserPointer(windowRef.Get(), this);
 
     resizeSize = windowRef.GetSize();
@@ -60,10 +60,11 @@ bool Inputs::IsKeyPressed(const int key) const {
         return false;
     return keyStates.at(key);
 }
+
 bool Inputs::IsMouseButtonPressed(const int button) const {
     if (!mouseStates.contains(button))
         return false;
-    return mouseStates.at(button);
+    return IsMouseFree() && mouseStates.at(button);
 }
 
 bool Inputs::IsMouseFree() const { return !ImGui::GetIO().WantCaptureMouse; }

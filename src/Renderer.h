@@ -3,13 +3,18 @@
 #include <filesystem>
 
 #include "SandBox.h"
+#include "Window.h"
 
 class Renderer {
 public:
-    void Init(int width, int height);
-    void Render(const SandBox& sandbox) const;
-    void Clear(float r, float g, float b, float a = 1.0f) const;
+    void Init(const Window& window, int width, int height);
     ~Renderer();
+
+    void BeginFrame() const;
+    void Render(const SandBox& sandbox) const;
+    void EndFrame() const;
+
+    void Clear(float r, float g, float b, float a = 1.0f) const;
 
 private:
     static constexpr float QUAD[] = {

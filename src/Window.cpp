@@ -4,10 +4,10 @@
 #include <iostream>
 
 #define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "GLFW/glfw3.h"
+#include "glad/glad.h"
 
-void GLFW::Init() {
+GLFWContext::GLFWContext() {
     if (!glfwInit())
         throw std::runtime_error("Failed to initialize GLFW");
 
@@ -21,11 +21,11 @@ void GLFW::Init() {
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 }
 
-void GLFW::Destroy() {
+GLFWContext::~GLFWContext() {
     glfwTerminate();
 }
 
-Window::Window(const int width, const int height, const char* title, const bool vsync) {
+void Window::Init(const int width, const int height, const char* title, const bool vsync) {
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!window)
         throw std::runtime_error("Failed to create GLFW window");

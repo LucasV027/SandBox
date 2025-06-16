@@ -2,7 +2,10 @@
 
 #include <stdexcept>
 
-SandBox::SandBox(const int width, const int height) : width(width), height(height) {
+void SandBox::Init(const int width, const int height) {
+    this->width = width;
+    this->height = height;
+
     if (width > 0 && height > 0) {
         buffer.resize(width * height, Air);
     } else {

@@ -1,39 +1,46 @@
-#include <iostream>
+#include "imgui.h"
 
 #include "Window.h"
 #include "Renderer.h"
 #include "Inputs.h"
 
 int main() {
-    GLFW::Init();
-
-    Window window(800, 600, "Sandbox", true);
-    window.Bind();
-
-    Inputs inputs(window);
+    GLFWContext context{};
 
     Renderer renderer;
-    renderer.Init(800, 600);
+    Window window;
+    Inputs inputs;
+    SandBox sandbox;
 
-    SandBox sandbox(800, 600);
+    window.Init(800, 600, "Sandbox", false);
+    window.Bind();
+    inputs.Init(window);
+    renderer.Init(window, 800, 600);
+    sandbox.Init(800, 600);
 
-    while (!window.ShouldClose()) {
-        renderer.Clear(0.2f, 0.2f, 0.2f);
-        renderer.Render(sandbox);
-
+    auto HandleInputs = [&]() {
         if (inputs.IsMouseButtonPressed(0)) {
             auto pos = window.GetMousePos();
             sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), Sand);
         }
+    };
+
+    while (!window.ShouldClose()) {
+        renderer.Clear(0.2f, 0.2f, 0.2f);
+
+        renderer.BeginFrame();
+        renderer.Render(sandbox);
+        ImGui::Begin("[INFO]");
+        ImGui::Text("Sandbox");
+        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::End();
+        renderer.EndFrame();
+
+        HandleInputs();
 
         sandbox.Update();
 
         window.SwapBuffers();
-
         inputs.Poll();
     }
-
-    window.Destroy();
-
-    GLFW::Destroy();
 }

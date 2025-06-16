@@ -1,12 +1,23 @@
 #include "Renderer.h"
 
+#include <iostream>
+
 #include "glad/glad.h"
 #include "glm/gtc/type_ptr.hpp"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 #include "DebugCallBack.h"
 #include "Shader.h"
 
-void Renderer::Init(const int width, const int height) {
+void Renderer::Init(const Window& window, const int width, const int height) {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForOpenGL(window.Get(), true);
+    ImGui_ImplOpenGL3_Init("#version 450 core");
+    ImGui::StyleColorsClassic();
+
     this->width = width;
     this->height = height;
 
@@ -69,6 +80,23 @@ void Renderer::Init(const int width, const int height) {
     glUseProgram(0);
 }
 
+Renderer::~Renderer() {
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
+    glDeleteTextures(1, &tex);
+    glDeleteProgram(program);
+
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
+void Renderer::BeginFrame() const {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+}
+
 void Renderer::Render(const SandBox& sandbox) const {
     glUseProgram(program);
     glBindVertexArray(vao);
@@ -83,14 +111,13 @@ void Renderer::Render(const SandBox& sandbox) const {
     glUseProgram(0);
 }
 
+void Renderer::EndFrame() const {
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
 void Renderer::Clear(const float r, const float g, const float b, const float a) const {
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-Renderer::~Renderer() {
-    glDeleteVertexArrays(1, &vao);
-    glDeleteBuffers(1, &vbo);
-    glDeleteTextures(1, &tex);
-    glDeleteProgram(program);
-}

@@ -10,8 +10,9 @@ enum CellType : uint8_t {
 
 class SandBox {
 public:
-    SandBox(int width, int height);
+    SandBox() = default;
     ~SandBox() = default;
+    void Init(int width, int height);
 
     void Update();
     void Create(int cx, int cy, CellType type, int radius = 1);

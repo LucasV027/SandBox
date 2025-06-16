@@ -2,17 +2,20 @@
 
 #include "glm/vec2.hpp"
 
-namespace GLFW {
-    void Init();
-    void Destroy();
-}
+class GLFWContext {
+public:
+    GLFWContext();
+    ~GLFWContext();
+};
 
 class GLFWwindow;
 
 class Window {
 public:
-    Window(int width, int height, const char* title, bool vsync = false);
+    Window() = default;
     ~Window();
+
+    void Init(int width, int height, const char* title, bool vsync = false);
 
     GLFWwindow* Get() const;
     void Destroy();

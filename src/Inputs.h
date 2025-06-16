@@ -8,7 +8,10 @@
 
 class Inputs {
 public:
-    explicit Inputs(Window& windowRef);
+    Inputs() = default;
+    ~Inputs() = default;
+
+    void Init(const Window& windowRef);
     void Poll();
 
     // Input
@@ -21,8 +24,6 @@ public:
     glm::dvec2 GetScrollOffset() const;
 
 private:
-    Window& windowRef;
-
     // Window resize
     bool resizeEvent = true;
     glm::ivec2 resizeSize;
