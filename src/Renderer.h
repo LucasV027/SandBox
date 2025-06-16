@@ -10,6 +10,8 @@ public:
     void Init(const Window& window, int width, int height);
     ~Renderer();
 
+    void Resize(int newWidth, int newHeight);
+
     void BeginFrame() const;
     void Render(const SandBox& sandbox) const;
     void EndFrame() const;

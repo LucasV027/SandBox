@@ -13,6 +13,7 @@ public:
     SandBox() = default;
     ~SandBox() = default;
     void Init(int width, int height);
+    void Resize(int newWidth, int newHeight);
 
     void Update();
     void Create(int cx, int cy, CellType type, int radius = 1);

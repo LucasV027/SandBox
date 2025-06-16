@@ -25,7 +25,7 @@ public:
 
 private:
     // Window resize
-    bool resizeEvent = true;
+    bool resizeEvent = false;
     glm::ivec2 resizeSize;
 
     // Keyboard

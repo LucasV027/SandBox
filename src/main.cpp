@@ -18,10 +18,16 @@ int main() {
     renderer.Init(window, 800, 600);
     sandbox.Init(800, 600);
 
-    auto HandleInputs = [&]() {
+    auto HandleInputs = [&] {
         if (inputs.IsMouseButtonPressed(0)) {
             auto pos = window.GetMousePos();
-            sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), Sand);
+            sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), Sand,40);
+        }
+
+        if (inputs.IsWindowResized()) {
+            const auto newSize = window.GetSize();
+            renderer.Resize(newSize.x, newSize.y);
+            sandbox.Resize(newSize.x, newSize.y);
         }
     };
 

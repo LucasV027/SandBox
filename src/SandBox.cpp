@@ -13,6 +13,12 @@ void SandBox::Init(const int width, const int height) {
     }
 }
 
+void SandBox::Resize(const int newWidth, const int newHeight) {
+    width = newWidth;
+    height = newHeight;
+    buffer.resize(width * height, Air);
+}
+
 void SandBox::Update() {
     for (int y = height - 1; y >= 0; --y) {
         for (int x = 0; x < width; ++x) {
