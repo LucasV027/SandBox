@@ -8,6 +8,7 @@ class Renderer {
 public:
     void Init(int width, int height);
     void Render(const SandBox& sandbox) const;
+    void Clear(float r, float g, float b, float a = 1.0f) const;
     ~Renderer();
 
 private:

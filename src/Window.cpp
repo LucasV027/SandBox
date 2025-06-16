@@ -66,7 +66,4 @@ bool Window::ShouldClose() const { return window && glfwWindowShouldClose(window
 void Window::Bind() const { glfwMakeContextCurrent(window); }
 void Window::SwapBuffers() const { glfwSwapBuffers(window); }
 
-void Window::Clear(const float r, const float g, const float b, const float a) const {
-    glClearColor(r, g, b, a);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
+

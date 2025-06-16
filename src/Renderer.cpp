@@ -83,6 +83,11 @@ void Renderer::Render(const SandBox& sandbox) const {
     glUseProgram(0);
 }
 
+void Renderer::Clear(const float r, const float g, const float b, const float a) const {
+    glClearColor(r, g, b, a);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
 Renderer::~Renderer() {
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);

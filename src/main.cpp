@@ -1,5 +1,3 @@
-#define GLFW_INCLUDE_NONE
-#include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
 #include "Window.h"
@@ -15,11 +13,9 @@ int main() {
     renderer.Init(800, 600);
 
     SandBox sandbox(800, 600);
-    sandbox.Create(40, 40, Sand);
 
     while (!window.ShouldClose()) {
-        window.Clear(0.2f, 0.2f, 0.2f);
-
+        renderer.Clear(0.2f, 0.2f, 0.2f);
         renderer.Render(sandbox);
 
         window.SwapBuffers();
