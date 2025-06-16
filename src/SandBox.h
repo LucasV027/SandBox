@@ -14,17 +14,17 @@ public:
     ~SandBox() = default;
 
     void Update();
-    void Create(int x, int y, CellType type);
+    void Create(int cx, int cy, CellType type, int radius = 1);
     const CellType* Data() const;
     int Width() const;
     int Height() const;
 
 private:
-    void SwapBuffers();
+    bool InBounds(int x, int y) const;
+    bool IsEmpty(int x, int y) const;
     int Index(int x, int y) const;
 
 private:
     int width, height;
-    std::vector<CellType> buffers[2];
-    int current = 0;
+    std::vector<CellType> buffer;
 };
