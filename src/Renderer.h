@@ -13,13 +13,14 @@ public:
 
 private:
     static constexpr float QUAD[] = {
-        -1.0f, 1.0f, 0.0f, 1.0f,
-        -1.0f, -1.0f, 0.0f, 0.0f,
-        1.0f, -1.0f, 1.0f, 0.0f,
+        // x, y, u, v
+        -1.f, -1.f, 0.f, 1.f,
+        1.f, -1.f, 1.f, 1.f,
+        1.f, 1.f, 1.f, 0.f,
 
-        -1.0f, 1.0f, 0.0f, 1.0f,
-        1.0f, -1.0f, 1.0f, 0.0f,
-        1.0f, 1.0f, 1.0f, 1.0f
+        -1.f, -1.f, 0.f, 1.f,
+        1.f, 1.f, 1.f, 0.f,
+        -1.f, 1.f, 0.f, 0.f
     };
 
     int width, height;

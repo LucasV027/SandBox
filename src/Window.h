@@ -1,5 +1,7 @@
 #pragma once
 
+#include "glm/vec2.hpp"
+
 namespace GLFW {
     void Init();
     void Destroy();
@@ -13,7 +15,6 @@ public:
     ~Window();
 
     GLFWwindow* Get() const;
-
     void Destroy();
 
     bool IsValid() const;
@@ -22,6 +23,9 @@ public:
     bool ShouldClose() const;
     void Bind() const;
     void SwapBuffers() const;
+
+    glm::ivec2 GetSize() const;
+    glm::dvec2 GetMousePos() const;
 
 private:
     static int count;

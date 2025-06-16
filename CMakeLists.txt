@@ -12,6 +12,8 @@ add_executable(${PROJECT_NAME}
         src/main.cpp
         src/Window.cpp
         src/Window.h
+        src/Inputs.cpp
+        src/Inputs.h
         src/SandBox.cpp
         src/SandBox.h
         src/Renderer.cpp
