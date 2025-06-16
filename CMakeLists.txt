@@ -14,9 +14,16 @@ add_executable(${PROJECT_NAME}
         src/Window.h
         src/SandBox.cpp
         src/SandBox.h
+        src/Renderer.cpp
+        src/Renderer.h
+        src/DebugCallBack.cpp
+        src/DebugCallBack.h
+        src/Shader.h
+        src/Shader.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)
+target_compile_definitions(${PROJECT_NAME} PRIVATE ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets")
 
 include(Dependencies.cmake)
 target_link_libraries(${PROJECT_NAME}

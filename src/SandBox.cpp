@@ -33,6 +33,13 @@ void SandBox::Create(const int x, const int y, const CellType type) {
     cells[Index(x, y)] = type;
 }
 
+const CellType* SandBox::Data() const {
+    return cells.data();
+}
+
+int SandBox::Width() const { return width; }
+int SandBox::Height() const { return height; }
+
 int SandBox::Index(const int x, const int y) const {
     return y * width + x;
 }

@@ -15,6 +15,9 @@ public:
 
     void Update();
     void Create(int x, int y, CellType type);
+    const CellType* Data() const;
+    int Width() const;
+    int Height() const;
 
 private:
     int Index(int x, int y) const;
