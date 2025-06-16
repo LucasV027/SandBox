@@ -5,7 +5,7 @@
 #include "Inputs.h"
 
 int main() {
-    GLFWContext context{};
+    GLFWContext context;
 
     Renderer renderer;
     Window window;
@@ -18,10 +18,12 @@ int main() {
     renderer.Init(window, 800, 600);
     sandbox.Init(800, 600);
 
+    int radius = 1;
+
     auto HandleInputs = [&] {
         if (inputs.IsMouseButtonPressed(0)) {
-            auto pos = window.GetMousePos();
-            sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), Sand,40);
+            const auto pos = window.GetMousePos();
+            sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), Sand, radius);
         }
 
         if (inputs.IsWindowResized()) {
@@ -39,6 +41,7 @@ int main() {
         ImGui::Begin("[INFO]");
         ImGui::Text("Sandbox");
         ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::SliderInt("Radius", &radius, 1, 100);
         ImGui::End();
         renderer.EndFrame();
 
