@@ -6,6 +6,7 @@
 enum CellType : uint8_t {
     Air = 0,
     Sand = 1,
+    Water = 2,
 };
 
 class SandBox {

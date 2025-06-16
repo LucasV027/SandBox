@@ -19,11 +19,14 @@ int main() {
     sandbox.Init(800, 600);
 
     int radius = 1;
+    int currentType = Sand;
+    const char* cellTypeNames[] = {"Air", "Sand", "Water"};
 
     auto HandleInputs = [&] {
         if (inputs.IsMouseButtonPressed(0)) {
             const auto pos = window.GetMousePos();
-            sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), Sand, radius);
+            sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<CellType>(currentType),
+                           radius);
         }
 
         if (inputs.IsWindowResized()) {
@@ -42,6 +45,7 @@ int main() {
         ImGui::Text("Sandbox");
         ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
         ImGui::SliderInt("Radius", &radius, 1, 100);
+        ImGui::Combo("Element", &currentType, cellTypeNames, IM_ARRAYSIZE(cellTypeNames));
         ImGui::End();
         renderer.EndFrame();
 

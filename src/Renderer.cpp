@@ -22,10 +22,9 @@ void Renderer::Init(const Window& window, const int width, const int height) {
     this->height = height;
 
     glm::vec3 colors[256] = {};
-    colors[0] = {0.2f, 0.2f, 0.2f};
-    colors[1] = {0.8f, 0.7f, 0.3f};
-    colors[2] = {0.1f, 0.3f, 0.8f};
-    colors[3] = {0.6f, 0.2f, 0.1f};
+    colors[0] = {0.2f, 0.2f, 0.2f}; // Air
+    colors[1] = {0.8f, 0.7f, 0.3f}; // Sand
+    colors[2] = {0.13f, 0.53f, 0.85f}; // Water
 
     GLint flags;
     glGetIntegerv(GL_CONTEXT_FLAGS, &flags);

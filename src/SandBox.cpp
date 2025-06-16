@@ -16,25 +16,57 @@ void SandBox::Init(const int width, const int height) {
 void SandBox::Resize(const int newWidth, const int newHeight) {
     width = newWidth;
     height = newHeight;
+    // TODO Better resizing algorithm
     buffer.resize(width * height, Air);
 }
 
 void SandBox::Update() {
-    for (int y = height - 1; y >= 0; --y) {
+    for (int y = height - 2; y >= 0; --y) {
         for (int x = 0; x < width; ++x) {
             const int idx = Index(x, y);
-            auto& cell = buffer[idx];
+            const auto& cell = buffer[idx];
 
             if (cell == Sand) {
-                const int below = Index(x, y + 1);
-                if (y + 1 < height) {
-                    if (buffer[below] == Air) {
-                        std::swap(cell, buffer[below]);
-                    } else if (buffer[below - 1] == Air) {
-                        std::swap(cell, buffer[below - 1]);
-                    } else if (buffer[below + 1] == Air) {
-                        std::swap(cell, buffer[below + 1]);
-                    }
+                if (buffer[Index(x, y + 1)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x, y + 1)]);
+                    continue;
+                }
+
+                if (x > 0 && buffer[Index(x - 1, y + 1)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x - 1, y + 1)]);
+                    continue;
+                }
+
+                if (x < width - 1 && buffer[Index(x + 1, y + 1)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x + 1, y + 1)]);
+                    continue;
+                }
+            }
+
+            if (cell == Water) {
+                if (buffer[Index(x, y + 1)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x, y + 1)]);
+                    continue;
+                }
+
+                if (x > 0 && buffer[Index(x - 1, y + 1)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x - 1, y + 1)]);
+                    continue;
+                }
+
+                if (x < width - 1 && buffer[Index(x + 1, y + 1)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x + 1, y + 1)]);
+                    continue;
+                }
+
+                if (x > 0 && buffer[Index(x - 1, y)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x - 1, y)]);
+                    continue;
+                }
+
+                if (x < width - 1 && buffer[Index(x + 1, y)] == Air) {
+                    std::swap(buffer[idx], buffer[Index(x + 1, y)]);
+                    continue;
                 }
             }
         }
