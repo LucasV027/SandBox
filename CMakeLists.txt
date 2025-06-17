@@ -22,6 +22,7 @@ add_executable(${PROJECT_NAME}
         src/DebugCallBack.h
         src/Shader.h
         src/Shader.cpp
+        src/Timer.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)

@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Inputs.h"
+#include "Timer.h"
 
 int main() {
     GLFWContext context;
@@ -23,18 +24,20 @@ int main() {
     int currentType = Sand;
     const char* cellTypeNames[] = {"Air", "Sand", "Water"};
 
+    Timer timer;
+    Cooldown cd(TimeUnit::milliseconds(35));
+    float lastUpdateTime = 0.f;
+
     auto HandleInputs = [&] {
-        static int frame = 0;
-        if (inputs.IsMouseButtonPressed(0)) {
-            if (frame < 0) {
-                const auto pos = window.GetMousePos();
-                sandbox.Create(static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<CellType>(currentType),
-                               radius,
-                               chance);
-                frame = 10;
-            }
-            frame--;
+        if (cd.Ok() && inputs.IsMouseButtonPressed(0)) {
+            const auto pos = window.GetMousePos();
+            sandbox.Create(static_cast<int>(pos.x),
+                           static_cast<int>(pos.y),
+                           static_cast<CellType>(currentType),
+                           radius, chance);
+            cd.Reset();
         }
+
 
         if (inputs.IsWindowResized()) {
             const auto newSize = window.GetSize();
@@ -47,10 +50,13 @@ int main() {
         renderer.Clear(0.2f, 0.2f, 0.2f);
 
         renderer.BeginFrame();
+        timer.Reset();
         renderer.Render(sandbox);
         ImGui::Begin("[INFO]");
         ImGui::Text("Sandbox");
         ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::Text("Render: %.1f ms", timer.Elapsed());
+        ImGui::Text("Update: %.1f ms", lastUpdateTime);
         ImGui::SliderInt("Radius", &radius, 1, 100);
         ImGui::SliderFloat("Chance", &chance, 0.01f, 1.0f);
         ImGui::Combo("Element", &currentType, cellTypeNames, IM_ARRAYSIZE(cellTypeNames));
@@ -59,7 +65,9 @@ int main() {
 
         HandleInputs();
 
+        timer.Reset();
         sandbox.Update();
+        lastUpdateTime = timer.Elapsed().count();
 
         window.SwapBuffers();
         inputs.Poll();
