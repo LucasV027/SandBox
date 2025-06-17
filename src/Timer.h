@@ -18,8 +18,13 @@ public:
     }
 
     template <typename Duration = std::chrono::milliseconds>
-    Duration Elapsed() const {
+    Duration ElapsedRaw() const {
         return std::chrono::duration_cast<Duration>(Clock::now() - start);
+    }
+
+    template <typename Duration = std::chrono::milliseconds>
+    float Elapsed() const {
+        return ElapsedRaw<Duration>().count();
     }
 
 private:
@@ -29,11 +34,11 @@ private:
 template <typename T>
 class Cooldown {
 public:
-    Cooldown(T delay) : delay(delay), timer() {}
+    explicit Cooldown(T delay) : delay(delay) {}
     void Reset() { timer.Reset(); }
 
     bool Ok() const {
-        return timer.Elapsed<T>() >= delay;
+        return timer.ElapsedRaw<T>() >= delay;
     }
 
 private:

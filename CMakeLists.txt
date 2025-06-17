@@ -23,6 +23,8 @@ add_executable(${PROJECT_NAME}
         src/Shader.h
         src/Shader.cpp
         src/Timer.h
+        src/Application.cpp
+        src/Application.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)
