@@ -17,7 +17,7 @@ public:
     void Resize(int newWidth, int newHeight);
 
     void Update();
-    void Create(int cx, int cy, CellType type, int radius = 1);
+    void Create(int cx, int cy, CellType type, int radius = 1, float chance = 1.f);
     const CellType* Data() const;
     int Width() const;
     int Height() const;
@@ -26,6 +26,10 @@ private:
     bool InBounds(int x, int y) const;
     bool IsEmpty(int x, int y) const;
     int Index(int x, int y) const;
+
+private:
+    void UpdateSand(int x, int y);
+    void UpdateWater(int x, int y);
 
 private:
     int width, height;

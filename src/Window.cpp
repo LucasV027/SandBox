@@ -39,7 +39,7 @@ void Window::Init(const int width, const int height, const char* title, const bo
             throw std::runtime_error("Failed to load GLAD");
     }
 
-    if (vsync) glfwSwapInterval(1);
+    glfwSwapInterval(vsync ? 1 : 0);
 
     count++;
 }
