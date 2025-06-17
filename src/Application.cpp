@@ -1,7 +1,5 @@
 #include "Application.h"
 
-#include <iostream>
-
 #include "imgui.h"
 
 Application::Application() {
@@ -42,7 +40,6 @@ void Application::Events() {
                        static_cast<CellType>(currentType),
                        radius, chance);
 
-        std::cout << pos.x << ", " << pos.y << std::endl;
         cd.Reset();
     }
 
