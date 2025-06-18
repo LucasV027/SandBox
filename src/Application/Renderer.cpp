@@ -9,20 +9,12 @@
 #include "Graphics/DebugCallBack.h"
 #include "Graphics/RenderCommand.h"
 
-void Renderer::Init(const Window& window, const int width, const int height) {
+void Renderer::Init(const Window& window) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(window.Get(), true);
     ImGui_ImplOpenGL3_Init("#version 450 core");
     ImGui::StyleColorsClassic();
-
-    this->width = width;
-    this->height = height;
-
-    glm::vec3 colors[256] = {};
-    colors[0] = {0.2f, 0.2f, 0.2f};    // Air
-    colors[1] = {0.8f, 0.7f, 0.3f};    // Sand
-    colors[2] = {0.13f, 0.53f, 0.85f}; // Water
 
     GLint flags;
     glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
@@ -33,7 +25,7 @@ void Renderer::Init(const Window& window, const int width, const int height) {
         glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
     }
 
-    RenderCommand::SetViewPort(0, 0, width, height);
+    RenderCommand::SetViewPort(0, 0, window.GetSize().x, window.GetSize().y);
 
     vao.Init();
     vbo.Load(QUAD, sizeof(QUAD));
@@ -48,10 +40,10 @@ void Renderer::Init(const Window& window, const int width, const int height) {
     program.LocateVariable("zoom");
     program.LocateVariable("offset");
 
-    tex.Create(width, height, GL_RED_INTEGER, GL_R8UI);
+    tex.Create(window.GetSize().x, window.GetSize().y, GL_RED_INTEGER, GL_R8UI);
     tex.Bind(0);
     program.SetUniform1i("idTexture", 0);
-    program.SetUniform3fv("materialColors", 256, value_ptr(colors[0]));
+    program.SetUniform3fv("materialColors", 256, value_ptr(PARTICLE_COLORS[0]));
     program.UnBind();
 }
 
@@ -62,10 +54,8 @@ Renderer::~Renderer() {
 }
 
 void Renderer::Resize(const int newWidth, const int newHeight) {
-    width = newWidth;
-    height = newHeight;
-    tex.Resize(width, height);
-    RenderCommand::SetViewPort(0, 0, width, height);
+    tex.Resize(newWidth, newHeight);
+    RenderCommand::SetViewPort(0, 0, newWidth, newHeight);
 }
 
 void Renderer::BeginFrame() const {

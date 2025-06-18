@@ -3,13 +3,15 @@
 #include "imgui.h"
 
 Application::Application() {
-    window.Init(800, 600, "Sandbox", true);
+    constexpr int width = 800;
+    constexpr int height = 600;
+    window.Init(width, height, "Sandbox", true);
     window.Bind();
     inputs.Init(window);
-    renderer.Init(window, 800, 600);
+    renderer.Init(window);
     renderer.SetZoom(zoom);
     renderer.SetOffset(offset);
-    sandbox.Init(800, 600);
+    sandbox.Init(width, height);
 }
 
 void Application::Run() {

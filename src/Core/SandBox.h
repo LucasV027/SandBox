@@ -3,10 +3,18 @@
 #include <cstdint>
 #include <vector>
 
+#include "glm/vec3.hpp"
+
 enum CellType : uint8_t {
     Air = 0,
     Sand = 1,
     Water = 2,
+};
+
+constexpr glm::vec3 PARTICLE_COLORS[256] = {
+    {0.2f, 0.2f, 0.2f},    // Air
+    {0.8f, 0.7f, 0.3f},    // Sand
+    {0.13f, 0.53f, 0.85f}, // Water
 };
 
 class SandBox {

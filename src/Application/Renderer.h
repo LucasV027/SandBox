@@ -10,7 +10,7 @@
 
 class Renderer {
 public:
-    void Init(const Window& window, int width, int height);
+    void Init(const Window& window);
     ~Renderer();
 
     void Resize(int newWidth, int newHeight);
@@ -36,8 +36,6 @@ private:
 
     const std::filesystem::path mainFsPath = ASSETS_DIR "/shaders/main.frag";
     const std::filesystem::path mainVsPath = ASSETS_DIR "/shaders/main.vert";
-
-    int width, height;
 
     VertexArray vao;
     VertexBuffer vbo;
