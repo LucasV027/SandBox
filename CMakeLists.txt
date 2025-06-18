@@ -19,15 +19,29 @@ add_executable(${PROJECT_NAME}
         src/Application/Application.h
         src/Application/Renderer.cpp
         src/Application/Renderer.h
+
         src/Application/Graphics/DebugCallBack.cpp
         src/Application/Graphics/DebugCallBack.h
-        src/Application/Graphics/Shader.h
-        src/Application/Graphics/Shader.cpp
+        src/Application/Graphics/IndexBuffer.cpp
+        src/Application/Graphics/IndexBuffer.h
+        src/Application/Graphics/Program.cpp
+        src/Application/Graphics/Program.h
+        src/Application/Graphics/RenderCommand.cpp
+        src/Application/Graphics/RenderCommand.h
+        src/Application/Graphics/Texture.cpp
+        src/Application/Graphics/Texture.h
+        src/Application/Graphics/VertexArray.cpp
+        src/Application/Graphics/VertexArray.h
+        src/Application/Graphics/VertexBuffer.cpp
+        src/Application/Graphics/VertexBuffer.h
+        src/Application/Graphics/VertexBufferLayout.cpp
+        src/Application/Graphics/VertexBufferLayout.h
 
         src/Core/SandBox.cpp
         src/Core/SandBox.h
 
         src/Utils/Timer.h
+        src/Utils/File.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)

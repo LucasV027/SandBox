@@ -4,6 +4,9 @@
 
 #include "Core/SandBox.h"
 #include "Application/Window.h"
+#include "Graphics/Program.h"
+#include "Graphics/Texture.h"
+#include "Graphics/VertexArray.h"
 
 class Renderer {
 public:
@@ -16,10 +19,8 @@ public:
     void Render(const SandBox& sandbox) const;
     void EndFrame() const;
 
-    void Clear(float r, float g, float b, float a = 1.0f) const;
-
-    void SetZoom(float zoom);
-    void SetOffset(const glm::vec2& offset);
+    void SetZoom(float zoom) const;
+    void SetOffset(const glm::vec2& offset) const;
 
 private:
     static constexpr float QUAD[] = {
@@ -33,17 +34,13 @@ private:
         -1.f, 1.f, 0.f, 0.f
     };
 
-    float zoom;
-    glm::vec2 offset;
-    int zoomLoc;
-    int offsetLoc;
-
-    int width, height;
-    unsigned int vao;
-    unsigned int vbo;
-    unsigned int tex;
-    unsigned int program;
-
     const std::filesystem::path mainFsPath = ASSETS_DIR "/shaders/main.frag";
     const std::filesystem::path mainVsPath = ASSETS_DIR "/shaders/main.vert";
+
+    int width, height;
+
+    VertexArray vao;
+    VertexBuffer vbo;
+    Texture tex;
+    Program program;
 };

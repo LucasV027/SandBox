@@ -14,8 +14,6 @@ Application::Application() {
 
 void Application::Run() {
     while (!window.ShouldClose()) {
-        renderer.Clear(0.1f, 0.1f, 0.1f);
-
         renderer.BeginFrame();
         timer.Reset();
         renderer.Render(sandbox);
