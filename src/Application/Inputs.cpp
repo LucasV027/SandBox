@@ -71,7 +71,7 @@ bool Inputs::IsMouseFree() const { return !ImGui::GetIO().WantCaptureMouse; }
 
 bool Inputs::IsWindowResized() const { return resizeEvent; }
 
-bool Inputs::IsMouseScrolled() const { return scrollEvent; }
+bool Inputs::IsMouseScrolled() const { return IsMouseFree() && scrollEvent; }
 
 glm::dvec2 Inputs::GetScrollOffset() const { return mouseScrollOffset; }
 

@@ -83,3 +83,6 @@ void Texture::Bind(const unsigned int slot) const {
 void Texture::UnBind() const {
     glBindTexture(type, 0);
 }
+
+int Texture::Width() const { return width; }
+int Texture::Height() const { return height; }

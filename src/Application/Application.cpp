@@ -97,14 +97,18 @@ void Application::Events() {
 
 void Application::UI() {
     ImGui::Begin("[INFO]");
-    ImGui::Text("Sandbox");
+    ImGui::Text("Window %d * %d", window.GetSize().x, window.GetSize().y);
+    ImGui::Text("Sandbox %d * %d", sandbox.Width(), sandbox.Height());
+    ImGui::NewLine();
+    ImGui::Text("Zoom: %.1f", zoom);
+    ImGui::Text("Offset: (%.1f ; %.1f)", offset.x, offset.y);
+    ImGui::NewLine();
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
     ImGui::Text("Render: %.1f ns", lastRenderTime);
     ImGui::Text("Update: %.1f ms", lastUpdateTime);
+    ImGui::NewLine();
     ImGui::SliderInt("Radius", &radius, 1, 100);
     ImGui::SliderFloat("Chance", &chance, 0.01f, 1.0f);
     ImGui::Combo("Element", &currentType, cellTypeNames, IM_ARRAYSIZE(cellTypeNames));
-    ImGui::Text("Zoom: %.1f", zoom);
-    ImGui::Text("Offset: (%.1f ; %.1f)", offset.x, offset.y);
     ImGui::End();
 }

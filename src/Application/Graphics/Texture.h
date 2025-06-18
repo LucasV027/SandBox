@@ -12,6 +12,8 @@ public:
     void Bind(unsigned int slot = 0) const;
     void UnBind() const;
 
+    int Width() const;
+    int Height() const;
 private:
     int width, height;
     unsigned int id;
