@@ -1,7 +1,5 @@
 #include "Renderer.h"
 
-#include <iostream>
-
 #include "glad/glad.h"
 #include "glm/gtc/type_ptr.hpp"
 #include "imgui.h"
@@ -72,10 +70,14 @@ void Renderer::Init(const Window& window, const int width, const int height) {
     glDeleteShader(fs);
 
     glUseProgram(program);
-    glUniform3fv(glGetUniformLocation(program, "materialColors"), 256, glm::value_ptr(colors[0]));
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, tex);
     glUniform1i(glGetUniformLocation(program, "idTexture"), 0);
+    zoomLoc = glGetUniformLocation(program, "zoom");
+    assert(zoomLoc != -1);
+    offsetLoc = glGetUniformLocation(program, "offset");
+    assert(offsetLoc != -1);
+    glUniform3fv(glGetUniformLocation(program, "materialColors"), 256, value_ptr(colors[0]));
     glUseProgram(0);
 }
 
@@ -114,6 +116,8 @@ void Renderer::BeginFrame() const {
 
 void Renderer::Render(const SandBox& sandbox) const {
     glUseProgram(program);
+    glUniform1f(zoomLoc, zoom);
+    glUniform2f(offsetLoc, offset.x, offset.y);
     glBindVertexArray(vao);
     glBindTexture(GL_TEXTURE_2D, tex);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -135,4 +139,8 @@ void Renderer::Clear(const float r, const float g, const float b, const float a)
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT);
 }
+
+void Renderer::SetZoom(const float zoom) { this->zoom = zoom; }
+void Renderer::SetOffset(const glm::vec2& offset) { this->offset = offset; }
+
 

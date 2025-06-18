@@ -18,6 +18,9 @@ public:
 
     void Clear(float r, float g, float b, float a = 1.0f) const;
 
+    void SetZoom(float zoom);
+    void SetOffset(const glm::vec2& offset);
+
 private:
     static constexpr float QUAD[] = {
         // x, y, u, v
@@ -29,6 +32,11 @@ private:
         1.f, 1.f, 1.f, 0.f,
         -1.f, 1.f, 0.f, 0.f
     };
+
+    float zoom;
+    glm::vec2 offset;
+    int zoomLoc;
+    int offsetLoc;
 
     int width, height;
     unsigned int vao;
