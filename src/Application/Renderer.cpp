@@ -6,8 +6,8 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "DebugCallBack.h"
-#include "Shader.h"
+#include "Graphics/DebugCallBack.h"
+#include "Graphics/Shader.h"
 
 void Renderer::Init(const Window& window, const int width, const int height) {
     IMGUI_CHECKVERSION();

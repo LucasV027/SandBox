@@ -2,8 +2,8 @@
 
 #include <filesystem>
 
-#include "SandBox.h"
-#include "Window.h"
+#include "Core/SandBox.h"
+#include "Application/Window.h"
 
 class Renderer {
 public:

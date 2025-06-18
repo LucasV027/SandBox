@@ -3,9 +3,9 @@
 #include "glm/vec2.hpp"
 
 #include "Window.h"
-#include "Renderer.h"
 #include "Inputs.h"
-#include "Timer.h"
+#include "Renderer.h"
+#include "Utils/Timer.h"
 
 class Application {
 public:

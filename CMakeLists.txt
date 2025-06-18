@@ -10,21 +10,24 @@ endif ()
 
 add_executable(${PROJECT_NAME}
         src/main.cpp
-        src/Window.cpp
-        src/Window.h
-        src/Inputs.cpp
-        src/Inputs.h
-        src/SandBox.cpp
-        src/SandBox.h
-        src/Renderer.cpp
-        src/Renderer.h
-        src/DebugCallBack.cpp
-        src/DebugCallBack.h
-        src/Shader.h
-        src/Shader.cpp
-        src/Timer.h
-        src/Application.cpp
-        src/Application.h
+
+        src/Application/Window.cpp
+        src/Application/Window.h
+        src/Application/Inputs.cpp
+        src/Application/Inputs.h
+        src/Application/Application.cpp
+        src/Application/Application.h
+        src/Application/Renderer.cpp
+        src/Application/Renderer.h
+        src/Application/Graphics/DebugCallBack.cpp
+        src/Application/Graphics/DebugCallBack.h
+        src/Application/Graphics/Shader.h
+        src/Application/Graphics/Shader.cpp
+
+        src/Core/SandBox.cpp
+        src/Core/SandBox.h
+
+        src/Utils/Timer.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)
