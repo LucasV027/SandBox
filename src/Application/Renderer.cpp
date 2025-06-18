@@ -77,7 +77,6 @@ void Renderer::BeginFrame() const {
 }
 
 void Renderer::Render(const SandBox& sandbox) const {
-    tex.Bind(0);
     tex.Submit(sandbox.Data());
     RenderCommand::Draw(vao, 0, 6, program);
     tex.UnBind();

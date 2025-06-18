@@ -42,6 +42,7 @@ add_executable(${PROJECT_NAME}
 
         src/Utils/Timer.h
         src/Utils/File.h
+        src/Utils/Random.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)

@@ -98,7 +98,7 @@ void Program::UnBind() const {
 }
 
 unsigned int Program::CompileShader(const std::filesystem::path& path, const GLenum shaderType) {
-    const std::string shaderSource = Utils::ReadFile(path);
+    const std::string shaderSource = File::ReadFile(path);
     const char* shaderSourcePtr = shaderSource.c_str();
 
     const GLuint shader = glCreateShader(shaderType);

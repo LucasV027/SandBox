@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+#include "Utils/Random.h"
+
 void SandBox::Init(const int width, const int height) {
     this->width = width;
     this->height = height;
@@ -38,10 +40,17 @@ void SandBox::Update() {
 }
 
 void SandBox::Create(const int cx, const int cy, const CellType type, const int radius, const float chance) {
+    if (radius == 1) {
+        if (InBounds(cx, cy) && Random::Random() < chance) {
+            buffer[Index(cx, cy)] = type;
+        }
+        return;
+    }
+
     for (int y = cy - radius; y < cy + radius; ++y) {
         for (int x = cx - radius; x < cx + radius; ++x) {
             if ((cx - x) * (cx - x) + (cy - y) * (cy - y) <= radius * radius) {
-                if (InBounds(x, y) && (rand() / (RAND_MAX + 1.)) < chance) {
+                if (InBounds(x, y) && Random::Random() < chance) {
                     buffer[Index(x, y)] = type;
                 }
             }
@@ -63,6 +72,16 @@ void SandBox::UpdateSand(const int x, const int y) {
     // Below
     if (buffer[Index(x, y + 1)] == Air) {
         std::swap(buffer[idx], buffer[Index(x, y + 1)]);
+        return;
+    }
+
+    // Random [Below-left, Below-right]
+    if (x > 0 && x < width - 1 && buffer[Index(x - 1, y + 1)] == Air && buffer[Index(x + 1, y + 1)] == Air) {
+        if (Random::Flip()) {
+            std::swap(buffer[idx], buffer[Index(x - 1, y + 1)]);
+        } else {
+            std::swap(buffer[idx], buffer[Index(x + 1, y + 1)]);
+        }
         return;
     }
 

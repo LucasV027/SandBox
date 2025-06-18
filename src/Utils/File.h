@@ -4,7 +4,7 @@
 #include <filesystem>
 #include <fstream>
 
-namespace Utils {
+namespace File {
     inline std::string ReadFile(const std::filesystem::path& filePath) {
         std::ifstream fileStream(filePath, std::ios::ate | std::ios::binary);
 
