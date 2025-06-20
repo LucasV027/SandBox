@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include <iostream>
+
 #include "imgui.h"
 
 Application::Application() {
@@ -37,11 +39,11 @@ void Application::Run() {
 void Application::Events() {
     // LEFT CLICK
     if (cd.Ok() && inputs.IsMouseButtonPressed(0)) {
-        const auto pos = window.GetMousePos();
+        const auto pos = window.MousePosRelative();
 
-        // [-1, 1]
-        const float ndcX = (pos.x / window.GetSize().x) * 2.0f - 1.0f;
-        const float ndcY = 1.0f - (pos.y / window.GetSize().y) * 2.0f;
+        // [ -1 ; 1 ]
+        const float ndcX = pos.x * 2.0f - 1.0f;
+        const float ndcY = 1.0f - pos.y * 2.0f;
 
         const float worldX = (ndcX - offset.x) / zoom;
         const float worldY = (ndcY - offset.y) / zoom;
@@ -55,10 +57,15 @@ void Application::Events() {
     }
 
     if (inputs.IsMouseScrolled()) {
-        const auto offset = inputs.GetScrollOffset();
-        zoom *= offset.y > 0 ? 1.1f : 0.9f;
+        const glm::vec2 fixedWorldPoint = (-offset) / zoom;
+
+        const auto scrollOffset = inputs.GetScrollOffset();
+        zoom *= scrollOffset.y > 0 ? 1.1f : 0.9f;
         zoom = std::clamp(zoom, 0.1f, 10.0f);
         renderer.SetZoom(zoom);
+
+        offset = -fixedWorldPoint * zoom;
+        renderer.SetOffset(offset);
     }
 
     // S
@@ -91,7 +98,7 @@ void Application::Events() {
     }
 
     if (inputs.IsWindowResized()) {
-        const auto newSize = window.GetSize();
+        const auto newSize = window.Size();
         renderer.Resize(newSize.x, newSize.y);
         sandbox.Resize(newSize.x, newSize.y);
     }
@@ -99,7 +106,7 @@ void Application::Events() {
 
 void Application::UI() {
     ImGui::Begin("[INFO]");
-    ImGui::Text("Window %d * %d", window.GetSize().x, window.GetSize().y);
+    ImGui::Text("Window %d * %d", window.Size().x, window.Size().y);
     ImGui::Text("Sandbox %d * %d", sandbox.Width(), sandbox.Height());
     ImGui::NewLine();
     ImGui::Text("Zoom: %.1f", zoom);

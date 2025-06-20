@@ -27,8 +27,10 @@ public:
     void Bind() const;
     void SwapBuffers() const;
 
-    glm::ivec2 GetSize() const;
-    glm::dvec2 GetMousePos() const;
+    float AspectRatio() const;
+    glm::ivec2 Size() const;
+    glm::dvec2 MousePos() const;
+    glm::vec2 MousePosRelative() const;
 
 private:
     static int count;

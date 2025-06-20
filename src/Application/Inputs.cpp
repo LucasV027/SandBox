@@ -7,7 +7,7 @@
 void Inputs::Init(const Window& windowRef) {
     glfwSetWindowUserPointer(windowRef.Get(), this);
 
-    resizeSize = windowRef.GetSize();
+    resizeSize = windowRef.Size();
 
     glfwSetWindowSizeCallback(
         windowRef.Get(), [](GLFWwindow* window, const int width, const int height) {

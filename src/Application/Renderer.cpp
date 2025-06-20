@@ -25,7 +25,7 @@ void Renderer::Init(const Window& window) {
         glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
     }
 
-    RenderCommand::SetViewPort(0, 0, window.GetSize().x, window.GetSize().y);
+    RenderCommand::SetViewPort(0, 0, window.Size().x, window.Size().y);
 
     vao.Init();
     vbo.Load(QUAD, sizeof(QUAD));
@@ -40,7 +40,7 @@ void Renderer::Init(const Window& window) {
     program.LocateVariable("zoom");
     program.LocateVariable("offset");
 
-    tex.Create(window.GetSize().x, window.GetSize().y, GL_RED_INTEGER, GL_R8UI);
+    tex.Create(window.Size().x, window.Size().y, GL_RED_INTEGER, GL_R8UI);
     tex.Bind(0);
     program.SetUniform1i("idTexture", 0);
     program.SetUniform3fv("materialColors", 256, value_ptr(PARTICLE_COLORS[0]));

@@ -66,15 +66,27 @@ bool Window::ShouldClose() const { return window && glfwWindowShouldClose(window
 void Window::Bind() const { glfwMakeContextCurrent(window); }
 void Window::SwapBuffers() const { glfwSwapBuffers(window); }
 
-glm::ivec2 Window::GetSize() const {
+float Window::AspectRatio() const {
+    const auto size = Size();
+    return static_cast<float>(size.x) / static_cast<float>(size.y);
+}
+
+glm::ivec2 Window::Size() const {
     int width, height;
     glfwGetWindowSize(window, &width, &height);
     return {width, height};
 }
 
-glm::dvec2 Window::GetMousePos() const {
+glm::dvec2 Window::MousePos() const {
     double x, y;
     glfwGetCursorPos(window, &x, &y);
     return {x, y};
 }
+
+glm::vec2 Window::MousePosRelative() const {
+    const auto size = Size();
+    const auto pos = MousePos();
+    return {pos.x / size.x, pos.y / size.y};
+}
+
 
